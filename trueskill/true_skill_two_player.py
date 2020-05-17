@@ -1,8 +1,19 @@
 import math
+from typing import Tuple
 from maths import V, W, Gaussian
 
 
-def update_rating(winner, loser, perf_noise_sigma=25/6, dynamics_factor=0):
+def update_rating(winner: Gaussian, loser: Gaussian,
+                  perf_noise_sigma=25/6,
+                  dynamics_factor=0) -> Tuple[Gaussian, Gaussian]:
+    """
+
+    :param winner:
+    :param loser:
+    :param perf_noise_sigma:
+    :param dynamics_factor:
+    :return:
+    """
     c = math.sqrt(winner.sigma ** 2 + loser.sigma ** 2 +
                   2 * perf_noise_sigma ** 2)
     winner_adjusted_var = winner.sigma**2 + dynamics_factor**2
@@ -17,16 +28,16 @@ def update_rating(winner, loser, perf_noise_sigma=25/6, dynamics_factor=0):
     w_game = W(delta_mu/c)
 
     # update the winner
-    mean_multiplier = winner_adjusted_var / c
+    mu_multiplier = winner_adjusted_var / c
     sigma_multiplier = winner_adjusted_var / c**2
-    new_mu = winning_mu + mean_multiplier * v_game
+    new_mu = winning_mu + mu_multiplier * v_game
     new_sigma = math.sqrt(winner_adjusted_var*(1-w_game*sigma_multiplier))
     updated_winner = Gaussian(mu=new_mu, sigma=new_sigma)
 
     # update the loser
-    mean_multiplier = loser_adjusted_var / c
+    mu_multiplier = loser_adjusted_var / c
     sigma_multiplier = loser_adjusted_var / c**2
-    new_mu = losing_mu - mean_multiplier * v_game
+    new_mu = losing_mu - mu_multiplier * v_game
     new_sigma = math.sqrt(loser_adjusted_var*(1-w_game*sigma_multiplier))
     updated_loser = Gaussian(mu=new_mu, sigma=new_sigma)
 

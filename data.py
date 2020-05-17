@@ -24,6 +24,10 @@ class DataSource(ABC):
         pass
 
     @abstractmethod
+    def bulk_update_player_ratings(self, ratings):
+        pass
+
+    @abstractmethod
     def save_player_ratings(self):
         pass
 
@@ -54,6 +58,9 @@ class CsvSource(DataSource):
 
     def update_player_rating(self, player_name, new_skill):
         self.data[player_name] = new_skill
+
+    def bulk_update_player_ratings(self, ratings):
+        self.data.update(ratings)
 
     def save_player_ratings(self, data_dir='.'):
         with open(os.path.join(data_dir, self.DATA_SOURCE), 'w+') as f:
