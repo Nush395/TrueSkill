@@ -12,8 +12,11 @@ As listed above the [original paper](https://www.microsoft.com/en-us/research/wp
 I used the following blog/article to help with my understanding and it was very useful
 * https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
 
-### Further explanation
+## Further explanation
 Please see my blog post here (TBD) for more details on the implementation
+
+## Tests
+To run the tests ...
 
 ### Other implementations:
 Below are listed some other implementations I found that implement the general TrueSkill algorithm very nicely.
