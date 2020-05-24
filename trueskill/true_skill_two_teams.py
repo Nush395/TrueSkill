@@ -1,14 +1,13 @@
 import math
-from typing import List, Tuple, Dict
-from maths import V, W, Gaussian
+from typing import Dict
+from maths import v_truncate, w_truncate, Gaussian
 
 
 def update_ratings_in_team(winning_team: Dict[Gaussian],
                            losing_team: Dict[Gaussian],
                            perf_noise_sigma=25/6,
                            dynamics_factor=5/6):
-    """
-    Does TrueSkill update for players in a two team game.
+    """Does TrueSkill update for players in a two team game.
 
     Args:
         winning_team: A dictionary of the skills of each player
@@ -16,8 +15,6 @@ def update_ratings_in_team(winning_team: Dict[Gaussian],
         perf_noise_sigma: Standard deviation of the performance noise
         dynamics_factor: Additional factor which allows uncertainty in skill
         to vary over time
-    Returns:
-
     """
     total_players = len(winning_team) + len(losing_team)
 
@@ -29,8 +26,8 @@ def update_ratings_in_team(winning_team: Dict[Gaussian],
                   total_players * perf_noise_sigma ** 2)
 
     # compute the additive and multiplicative correction factors
-    v_game = V(delta_mu/c)
-    w_game = W(delta_mu/c)
+    v_game = v_truncate(delta_mu / c)
+    w_game = w_truncate(delta_mu / c)
 
     # update the winning teams skills in place
     for player in winning_team:

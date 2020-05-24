@@ -38,6 +38,9 @@ def calculate_skills_1teamvs1team(winning_team: List[str],
         winning_team: A list of player names on the winning team
         losing_team: A list of player names on the losing team
         save_dir: the directoru where the skills CSV file is located
+    Raises:
+        ValueError: If there is something wrong with the player names in the
+        teams.
     """
     if len(winning_team) != len(set(winning_team)):
         raise ValueError("Unique player names required in winning team.")

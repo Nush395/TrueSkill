@@ -1,19 +1,23 @@
 from scipy.stats.distributions import norm
-import math
 
 
-def V(x: float) -> float:
+def v_truncate(x: float) -> float:
+    """Computes the additive correction term to the moment matching
+    approximation of the truncated Gaussian as detailed in original paper.
+    """
     return norm.pdf(x) / norm.cdf(x)
 
 
-def W(x: float) -> float:
-    return V(x)*(x+V(x))
+def w_truncate(x: float) -> float:
+    """Helper to compute the multiplicative correction term to the moment
+    matching approximation of the truncated Gaussian as detailed in original
+    paper.
+    """
+    return v_truncate(x) * (x + v_truncate(x))
 
 
 class Gaussian:
-    """Class to act as a container to hold parameters for Gaussians
-    maybe this can be replaced with a named tuple
-    """
+    """Class to act as a container to hold parameters for Gaussians."""
     def __init__(self, mu=None, sigma=None, pi=None, tau=None):
         if pi is not None and tau is not None:
             self.pi = pi

@@ -1,18 +1,23 @@
 import math
 from typing import Tuple
-from maths import V, W, Gaussian
+from maths import v_truncate, w_truncate, Gaussian
 
 
 def update_rating(winner: Gaussian, loser: Gaussian,
                   perf_noise_sigma=25/6,
                   dynamics_factor=0) -> Tuple[Gaussian, Gaussian]:
-    """
+    """Updates the skills of two players in a 1vs1 match.
 
-    :param winner:
-    :param loser:
-    :param perf_noise_sigma:
-    :param dynamics_factor:
-    :return:
+    Args:
+        winner: Skill of the winner
+        loser: Skill of the loser
+        perf_noise_sigma: The standard devication of the performance noise.
+        dynamics_factor: The standard deviation of the dynamics factor on the
+        prior skill which allows uncertainty in skill to vary over time.
+
+    Returns:
+        Two new Gaussian objects containing the updated winner skill and
+        updated loser skill respectively.
     """
     c = math.sqrt(winner.sigma ** 2 + loser.sigma ** 2 +
                   2 * perf_noise_sigma ** 2)
@@ -24,8 +29,8 @@ def update_rating(winner: Gaussian, loser: Gaussian,
     delta_mu = winning_mu - losing_mu
 
     # calculate the additive and multiplicative correction factors
-    v_game = V(delta_mu/c)
-    w_game = W(delta_mu/c)
+    v_game = v_truncate(delta_mu / c)
+    w_game = w_truncate(delta_mu / c)
 
     # update the winner
     mu_multiplier = winner_adjusted_var / c
