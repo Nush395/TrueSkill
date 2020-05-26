@@ -140,8 +140,3 @@ class TruncateFactor(Factor):
     def down(self):
         return 0
 
-v = Variable()
-g = Gaussian()
-print(id(g))
-pf = PriorFactor(v, g)
-print(id(pf.value))
