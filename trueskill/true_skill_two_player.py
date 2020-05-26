@@ -1,11 +1,12 @@
 import math
 from typing import Tuple
 from maths import v_truncate, w_truncate, Gaussian
+from trueskill import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 def update_rating(winner: Gaussian, loser: Gaussian,
-                  perf_noise_sigma=25/6,
-                  dynamics_factor=0) -> Tuple[Gaussian, Gaussian]:
+                  perf_noise_sigma=PERFORMANCE_NOISE,
+                  dynamics_factor=DYNAMIC_FACTOR) -> Tuple[Gaussian, Gaussian]:
     """Updates the skills of two players in a 1vs1 match.
 
     Args:

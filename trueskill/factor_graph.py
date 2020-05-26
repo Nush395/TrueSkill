@@ -1,7 +1,8 @@
 import math
 from maths import Gaussian, v_truncate, w_truncate
-from abc import abstractmethod, ABC
 from typing import List
+from abc import ABC, abstractmethod
+from trueskill import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 class Factor(ABC):
@@ -20,10 +21,11 @@ class Factor(ABC):
 
 
 class Variable(Gaussian):
-    def __init__(self):
+    def __init__(self, name=""):
         # each entry in the messages dict is a factor whose value is the
         # message from that factor to this variable
         self.messages = {}
+        self.name = name
         super().__init__()
 
     def set(self, val: Gaussian):
@@ -49,22 +51,25 @@ class Variable(Gaussian):
 
 
 class PriorFactor(Factor):
-    def __init__(self, variable, value, dynamic=0):
+    def __init__(self, variable: Variable, value: Gaussian,
+                 dynamic=DYNAMIC_FACTOR):
         super().__init__([variable])
+        self.var = variable
         self.value = value
         self.dynamic = dynamic
 
     def down(self):
         sigma = math.sqrt(self.value.sigma ** 2 + self.dynamic ** 2)
         value = Gaussian(mu=self.value.mu, sigma=sigma)
-        self.vars[0].update_marginal(self, value)
+        self.var.update_marginal(self, value)
 
     def up(self):
         return 0
 
 
 class PerformanceFactor(Factor):
-    def __init__(self, mean: Variable, performance: Variable, beta=25/6):
+    def __init__(self, mean: Variable, performance: Variable,
+                 beta=PERFORMANCE_NOISE):
         super().__init__([mean, performance])
         self.beta = beta
         self.mean_skill = mean
@@ -100,7 +105,7 @@ class SumFactor(Factor):
                         (perf_vars[i].pi - perf_messages[i].pi)
                         for i in range(len(coeffs))])
         new_message = Gaussian(pi=pi, tau=tau)
-        return var.update_message(self, new_message)
+        var.update_message(self, new_message)
 
     def up(self, idx=0):
         variables = ([var for i, var in enumerate(self.perf_vars) if i != idx]
@@ -134,3 +139,9 @@ class TruncateFactor(Factor):
 
     def down(self):
         return 0
+
+v = Variable()
+g = Gaussian()
+print(id(g))
+pf = PriorFactor(v, g)
+print(id(pf.value))

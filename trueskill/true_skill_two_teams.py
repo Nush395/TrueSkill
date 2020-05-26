@@ -1,12 +1,13 @@
 import math
 from typing import Dict
 from maths import v_truncate, w_truncate, Gaussian
+from trueskill import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 def update_ratings_in_team(winning_team: Dict[Gaussian],
                            losing_team: Dict[Gaussian],
-                           perf_noise_sigma=25/6,
-                           dynamics_factor=5/6):
+                           perf_noise_sigma=PERFORMANCE_NOISE,
+                           dynamics_factor=DYNAMIC_FACTOR):
     """Does TrueSkill update for players in a two team game.
 
     Args:
