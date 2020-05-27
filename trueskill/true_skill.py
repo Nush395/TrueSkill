@@ -6,7 +6,7 @@ from trueskill.factor_graph import Variable, PerformanceFactor, PriorFactor,\
 
 
 class TrueSkill:
-    def __init__(self, teams: List[Dict[Gaussian]],
+    def __init__(self, teams: List[Dict[str, Gaussian]],
                  dynamics=DYNAMIC_FACTOR,
                  perf_noise_sigma=PERFORMANCE_NOISE,
                  delta=DELTA):
@@ -68,7 +68,7 @@ class TrueSkill:
             factor.down()
         if len(self.teams) > 2:
             # iterate till approximate game outcome marginals don't change
-            delta = float('inf')
+            delta = 0
             while True:
                 for i in range(len(self.game_factors)-1):
                     self.game_factors[i].down()
@@ -79,6 +79,9 @@ class TrueSkill:
                     self.game_factors[i+1].up(0)
                 if delta <= self.delta:
                     break
+        else:
+            self.game_factors[0].down()
+            self.truncate_factors[0].up()
         self.game_factors[0].up(0)
         self.game_factors[-1].up(1)
         for team_factor in self.team_factors:

@@ -59,8 +59,8 @@ class PriorFactor(Factor):
         self.dynamic = dynamic
 
     def down(self):
-        sigma = math.sqrt(self.value.sigma ** 2 + self.dynamic ** 2)
-        value = Gaussian(mu=self.value.mu, sigma=sigma)
+        pi = 1 / (self.value.pi ** -1 + self.dynamic ** 2)
+        value = Gaussian(pi=pi, tau=self.value.tau)
         self.var.update_marginal(self, value)
 
     def up(self):
@@ -77,7 +77,7 @@ class PerformanceFactor(Factor):
 
     def _update_helper(self, variable_one: Variable, variable_two: Variable):
         msg = variable_one / variable_one.messages[self]
-        a = 1 / (1 + self.beta ** 2 + msg.pi)
+        a = 1 / (1 + self.beta ** 2 * msg.pi)
         message = Gaussian(pi=a*msg.pi, tau=a*msg.tau)
         variable_two.update_message(self, message)
 
