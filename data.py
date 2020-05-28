@@ -1,10 +1,7 @@
 import os
 from maths import Gaussian
 from abc import ABC, abstractmethod
-
-
-DEFAULT_SKILL = 25
-DEFAULT_SIGMA = 25/3
+from trueskill import MU, SIGMA
 
 
 class DataSource(ABC):
@@ -52,8 +49,8 @@ class CsvSource(DataSource):
 
     def load_player_ratings(self, player_name):
         if player_name not in self.data:
-            self.data[player_name] = Gaussian(mu=DEFAULT_SKILL,
-                                              sigma=DEFAULT_SIGMA)
+            self.data[player_name] = Gaussian(mu=MU,
+                                              sigma=SIGMA)
         return self.data[player_name]
 
     def update_player_rating(self, player_name, new_skill):
