@@ -1,4 +1,5 @@
 from scipy.stats.distributions import norm
+import numpy as np
 import math
 import logging
 
@@ -57,6 +58,14 @@ class Gaussian:
         else:
             return False
 
+    def kl_divergence(self, other):
+        # note this isn't a symmetric distance
+        distance = (np.log(other.sigma/self.sigma) +
+                    ((self.sigma ** 2 + (self.mu - other.mu)**2) /
+                     (2*other.sigma**2))
+                    - 0.5)
+        return distance
+
     @property
     def mu(self):
         if self.pi != 0:
@@ -65,7 +74,6 @@ class Gaussian:
             return 0
 
     @mu.setter
-    @property
     def mu(self, mu):
         self.tau = self.pi * mu
 
@@ -81,7 +89,6 @@ class Gaussian:
             raise ValueError("Ill-defined precision.")
 
     @sigma.setter
-    @property
     def sigma(self, sigma):
         self.pi = 1 / math.sqrt(sigma)
 

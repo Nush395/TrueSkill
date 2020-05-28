@@ -1,4 +1,5 @@
 import math
+import numpy as np
 from maths import Gaussian, v_truncate, w_truncate
 from typing import List
 from abc import ABC, abstractmethod
@@ -28,26 +29,24 @@ class Variable(Gaussian):
         self.name = name
         super().__init__()
 
-    def set(self, val: Gaussian):
-        delta = self.delta(val)
-        self.pi, self.tau = val.pi, val.tau
-        return delta
+    @property
+    def marginal(self):
+        return Gaussian(pi=self.pi, tau=self.tau)
 
-    def delta(self, other: Gaussian):
-        pi_delta = abs(self.pi - other.pi)
-        if pi_delta == float('inf'):
-            return 0
-        return max(abs(self.tau-other.tau), math.sqrt(pi_delta))
+    @marginal.setter
+    def marginal(self, val: Gaussian):
+        self.pi = val.pi
+        self.tau = val.tau
 
     def update_message(self, factor: Factor, message: Gaussian):
         # update the factor to variable message
         old_message, self.messages[factor] = self.messages[factor], message
-        return self.set(self / old_message * message)
+        self.marginal = self / old_message * message
 
     def update_marginal(self, factor: Factor, value: Gaussian):
         old_message = self.messages[factor]
         self.messages[factor] = value * old_message / self
-        return self.set(value)
+        self.marginal = value
 
 
 class PriorFactor(Factor):
@@ -134,8 +133,9 @@ class TruncateFactor(Factor):
         pi = c / (1-w_truncate(d / math.sqrt(c)))
         tau = ((d + math.sqrt(c) * v_truncate(d / math.sqrt(c))) /
                (1 - w_truncate(d / math.sqrt(c))))
-        new_marginal = Gaussian(pi=pi, tau=tau)
-        return self.var.update_marginal(self, new_marginal)
+        old_marginal = self.var.marginal
+        self.var.update_marginal(self, Gaussian(pi=pi, tau=tau))
+        return old_marginal.kl_divergence(self.var.marginal)
 
     def down(self):
         return 0

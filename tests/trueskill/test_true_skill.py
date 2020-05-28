@@ -69,7 +69,7 @@ class TestTrueSkill(unittest.TestCase):
 
         # when
         ts = TrueSkill(teams)
-        new_ratings = ts.update_ratings()
+        ts.update_ratings()
 
         # then expect a convergence
 
