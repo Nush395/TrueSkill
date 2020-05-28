@@ -68,8 +68,8 @@ class TrueSkill:
             factor.down()
         if len(self.teams) > 2:
             # iterate till approximate game outcome marginals don't change
-            delta = 0
             while True:
+                delta = 0
                 for i in range(len(self.game_factors)-1):
                     self.game_factors[i].down()
                     delta = max(delta, self.truncate_factors[i].up())
