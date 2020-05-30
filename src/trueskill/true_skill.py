@@ -17,6 +17,9 @@ class TrueSkill:
             dynamics: The standard deviation on the prior skill which allows
             the skill to vary over time.
             perf_noise_sigma: The standard deviation of the performance noise.
+            delta: The minimum difference two marginals have to satisfy to be
+            considered approximately equal (for the approximation of game
+            marginals.)
         """
         self.dynamics = dynamics
         self.perf_sigma = perf_noise_sigma

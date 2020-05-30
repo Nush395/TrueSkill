@@ -49,8 +49,7 @@ class CsvSource(DataSource):
 
     def load_player_ratings(self, player_name):
         if player_name not in self.data:
-            self.data[player_name] = Gaussian(mu=MU,
-                                              sigma=SIGMA)
+            self.data[player_name] = Gaussian(mu=MU, sigma=SIGMA)
         return self.data[player_name]
 
     def update_player_rating(self, player_name, new_skill):

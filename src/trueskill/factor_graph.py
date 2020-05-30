@@ -96,6 +96,8 @@ class SumFactor(Factor):
 
     def _update_helper(self, var: Variable, perf_vars: List[Variable],
                        perf_messages: List[Gaussian], coeffs: List[float]):
+        # TODO: Make variables, messages and coeffs a list of named tuples.
+        assert len(perf_vars) == len(perf_messages) == len(coeffs)
         pi = 1.0 / sum([coeffs[i]**2 / (perf_vars[i].pi - perf_messages[i].pi)
                         for i in range(len(coeffs))])
         tau = pi * sum([coeffs[i] *
