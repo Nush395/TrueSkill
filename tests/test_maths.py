@@ -1,4 +1,4 @@
-from maths import Gaussian
+from src.utils.maths import Gaussian
 import unittest
 
 

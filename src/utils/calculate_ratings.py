@@ -1,7 +1,7 @@
 from typing import List
-from trueskill.true_skill_two_player import update_rating
-from trueskill.true_skill_two_teams import update_ratings_in_team
-from data import CsvSource
+from src.trueskill import update_rating
+from src.trueskill.true_skill_two_teams import update_ratings_in_team
+from src.data import CsvSource
 
 
 def calculate_skill_1vs1(player_one: str, player_two: str, save_dir='.'):

@@ -1,7 +1,7 @@
 from typing import List, Dict
-from maths import Gaussian
-from trueskill import DYNAMIC_FACTOR, PERFORMANCE_NOISE, DELTA
-from trueskill.factor_graph import Variable, PerformanceFactor, PriorFactor,\
+from src.utils.maths import Gaussian
+from src.trueskill.constants import DYNAMIC_FACTOR, PERFORMANCE_NOISE, DELTA
+from src.trueskill.factor_graph import Variable, PerformanceFactor, PriorFactor,\
     SumFactor, TruncateFactor
 
 

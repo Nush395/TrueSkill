@@ -1,9 +1,9 @@
 import unittest
-from trueskill.true_skill_two_player import update_rating
-from trueskill.true_skill_two_teams import update_ratings_in_team
-from trueskill.true_skill import TrueSkill
-from trueskill import MU, SIGMA
-from maths import Gaussian
+from src.trueskill.true_skill_two_player import update_rating
+from src.trueskill.true_skill_two_teams import update_ratings_in_team
+from src.trueskill.true_skill import TrueSkill
+from src.trueskill.constants import MU, SIGMA
+from src.utils.maths import Gaussian
 
 
 class TestTrueSkill(unittest.TestCase):
