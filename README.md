@@ -1,5 +1,5 @@
 # TrueSkill
-This library is an implementation of the algorithm described in [the original paper by the team at Microsoft Research](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf). It does not yet model/allow the option for draws to happen in games.
+This library is an implementation of the algorithm described in [the original paper by the team at Microsoft Research](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf). It differs from the complete implementation in that it does not yet model/allow the option for draws to happen in games and doesn't support partial play.
 ## Motivation
 I created this library as a fun way of being able to understand the TrueSkill algorithm as part of my journey on all things Bayesian and Machine Learning and also as a way for me to be able to rank games in table football/tennis amongst my mates.
 ## Requirements
