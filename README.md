@@ -12,6 +12,7 @@ TBD...
 As listed above the [original paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) where the details of the TrueSkill algorithm were laid out. 
 I used the following blog/article to help with my understanding and it was very useful.
 * https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
+
 I also took design inspiration for this library from the accompanying code repo for the above article.
 * https://github.com/moserware/Skills (C#)
 
