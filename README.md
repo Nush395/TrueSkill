@@ -8,8 +8,11 @@ I created this library as a fun way of being able to understand the TrueSkill al
 * Numpy 1.18.0
 ## Usage
 ### Direct usage
+#### Using results of factor graph directly.
+In order to 
+#### Building your own factor graph
+If you would like to directly make use of the components of the factor graph yourself they can be found in [here](src/trueskill/factor_graph.py)
 
-### Direct usage of factor graph
 ## Credits
 As listed above the [original paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) where the details of the TrueSkill algorithm were laid out. 
 I used the following blog/article to help with my understanding and it was very useful.
