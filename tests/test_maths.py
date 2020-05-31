@@ -1,4 +1,4 @@
-from src.utils.maths import Gaussian
+from trueskill.utils.maths import Gaussian
 import unittest
 
 

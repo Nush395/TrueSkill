@@ -1,7 +1,7 @@
 import os
-from src.utils.maths import Gaussian
+from trueskill.utils.maths import Gaussian
 from abc import ABC, abstractmethod
-from src.trueskill.constants import MU, SIGMA
+from trueskill.utils.constants import MU, SIGMA
 
 
 class DataSource(ABC):

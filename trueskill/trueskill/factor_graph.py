@@ -1,8 +1,8 @@
 import math
-from src.utils.maths import Gaussian, v_truncate, w_truncate
+from trueskill.utils.maths import Gaussian, v_truncate, w_truncate
 from typing import List
 from abc import ABC, abstractmethod
-from src.trueskill.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
+from trueskill.utils.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 class Factor(ABC):

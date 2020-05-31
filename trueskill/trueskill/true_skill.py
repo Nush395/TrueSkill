@@ -1,11 +1,12 @@
 from typing import List, Dict
-from src.utils.maths import Gaussian
-from src.trueskill.constants import DYNAMIC_FACTOR, PERFORMANCE_NOISE, DELTA
-from src.trueskill.factor_graph import Variable, PerformanceFactor, PriorFactor,\
-    SumFactor, TruncateFactor
+from trueskill.utils.maths import Gaussian
+from trueskill.utils.constants import DYNAMIC_FACTOR, PERFORMANCE_NOISE, \
+    DELTA
+from trueskill.trueskill.factor_graph import Variable, PerformanceFactor, \
+    PriorFactor, SumFactor, TruncateFactor
 
 
-class TrueSkill:
+class TrueSkillEnv:
     def __init__(self, teams: List[Dict[str, Gaussian]],
                  dynamics=DYNAMIC_FACTOR,
                  perf_noise_sigma=PERFORMANCE_NOISE,

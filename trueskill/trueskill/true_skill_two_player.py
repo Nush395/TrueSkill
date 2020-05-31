@@ -1,7 +1,7 @@
 import math
 from typing import Tuple
-from src.utils.maths import v_truncate, w_truncate, Gaussian
-from src.trueskill.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
+from trueskill.utils.maths import v_truncate, w_truncate, Gaussian
+from trueskill.utils.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 def update_rating(winner: Gaussian, loser: Gaussian,

@@ -1,7 +1,7 @@
 import unittest
-from src.trueskill.constants import MU, SIGMA
-from src.data.data import CsvSource
-from src.utils.maths import Gaussian
+from trueskill.utils.constants import MU, SIGMA
+from trueskill.data.data import CsvSource
+from trueskill.utils.maths import Gaussian
 
 
 class TestCsvSource(unittest.TestCase):

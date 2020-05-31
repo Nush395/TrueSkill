@@ -1,7 +1,7 @@
 import math
 from typing import Dict
-from src.utils.maths import v_truncate, w_truncate, Gaussian
-from src.trueskill.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
+from trueskill.utils.maths import v_truncate, w_truncate, Gaussian
+from trueskill.utils.constants import PERFORMANCE_NOISE, DYNAMIC_FACTOR
 
 
 def update_ratings_in_team(winning_team: Dict[str, Gaussian],
