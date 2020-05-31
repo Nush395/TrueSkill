@@ -2,7 +2,7 @@ from typing import List, Dict
 from trueskill.utils.maths import Gaussian
 from trueskill.utils.constants import DYNAMIC_FACTOR, PERFORMANCE_NOISE, \
     DELTA
-from trueskill.trueskill.factor_graph import Variable, PerformanceFactor, \
+from trueskill.engine.factor_graph import Variable, PerformanceFactor, \
     PriorFactor, SumFactor, TruncateFactor
 
 

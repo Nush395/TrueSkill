@@ -32,6 +32,8 @@ class DataSource(ABC):
 class CsvSource(DataSource):
     def __init__(self, data_dir='.'):
         super().__init__()
+        if not os.path.exists(data_dir):
+            raise NotADirectoryError("Data directory doesn't exist.")
         self.DATA_SOURCE = 'true_skills.csv'
         self.data = {}
         self.connect_to_source(data_dir=data_dir)

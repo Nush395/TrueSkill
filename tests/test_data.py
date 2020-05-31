@@ -1,6 +1,6 @@
 import unittest
 from trueskill.utils.constants import MU, SIGMA
-from trueskill.data.data import CsvSource
+from trueskill.data.player_ratings import CsvSource
 from trueskill.utils.maths import Gaussian
 
 

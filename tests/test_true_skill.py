@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch
-from trueskill.trueskill.true_skill_two_player import update_rating
-from trueskill.trueskill.true_skill_two_teams import update_ratings_in_team
-from trueskill.trueskill import TrueSkillEnv
+from trueskill.engine.true_skill_two_player import update_rating
+from trueskill.engine.true_skill_two_teams import update_ratings_in_team
+from trueskill.engine.true_skill import TrueSkillEnv
 from trueskill.utils.constants import MU, SIGMA
 from trueskill.utils.maths import Gaussian
-from trueskill.trueskill.factor_graph import Variable, PriorFactor, \
+from trueskill.engine.factor_graph import Variable, PriorFactor, \
     PerformanceFactor, TruncateFactor, SumFactor
 
 
@@ -93,7 +93,7 @@ class TestFactorGraph(unittest.TestCase):
         expected_marginal = Gaussian(pi=expected_pi, tau=val.tau)
         self.assertEqual(expected_marginal, pf.var.marginal)
 
-    @patch("trueskill.trueskill.factor_graph.PerformanceFactor._update_helper")
+    @patch("engine.engine.factor_graph.PerformanceFactor._update_helper")
     def test_performance_factor_down(self, mock_update):
         # given
         val1 = Variable()
@@ -106,7 +106,7 @@ class TestFactorGraph(unittest.TestCase):
         # then
         mock_update.assert_called_with(val1, val2)
 
-    @patch("trueskill.trueskill.factor_graph.PerformanceFactor._update_helper")
+    @patch("engine.engine.factor_graph.PerformanceFactor._update_helper")
     def test_performance_factor_up(self, mock_update):
         # given
         val1 = Variable()
@@ -137,7 +137,7 @@ class TestFactorGraph(unittest.TestCase):
         expected_tau = expected_pi * (1 + 2)
         var.messages[sf] = Gaussian(pi=expected_pi, tau=expected_tau)
 
-    @patch("trueskill.trueskill.factor_graph.SumFactor._update_helper")
+    @patch("engine.engine.factor_graph.SumFactor._update_helper")
     def test_sum_factor_down(self, mock_helper):
         # given
         var = Variable()
@@ -156,7 +156,7 @@ class TestFactorGraph(unittest.TestCase):
         mock_helper.assert_called_with(var, perf_vars, expected_messages,
                                        coeffs)
 
-    @patch("trueskill.trueskill.factor_graph.SumFactor._update_helper")
+    @patch("engine.engine.factor_graph.SumFactor._update_helper")
     def test_sum_factor_up(self, mock_helper):
         # given
         var = Variable()
@@ -178,9 +178,9 @@ class TestFactorGraph(unittest.TestCase):
         mock_helper.assert_called_with(var1, expected_vars, expected_messages,
                                        expected_coeffs)
 
-    @patch("trueskill.utils.maths.Gaussian.kl_divergence")
-    @patch("trueskill.trueskill.factor_graph.w_truncate", return_value=0)
-    @patch("trueskill.trueskill.factor_graph.v_truncate", return_value=0)
+    @patch("engine.utils.maths.Gaussian.kl_divergence")
+    @patch("engine.engine.factor_graph.w_truncate", return_value=0)
+    @patch("engine.engine.factor_graph.v_truncate", return_value=0)
     def test_truncate_factor_updates_marginal(self, mock_v, mock_w, mock_kl):
         # given
         var = Variable()
@@ -196,9 +196,9 @@ class TestFactorGraph(unittest.TestCase):
         expected_marginal = Gaussian(pi=expected_pi, tau=expected_tau)
         self.assertEqual(var.marginal, expected_marginal)
 
-    @patch("trueskill.utils.maths.Gaussian.kl_divergence")
-    @patch("trueskill.trueskill.factor_graph.w_truncate", return_value=0)
-    @patch("trueskill.trueskill.factor_graph.v_truncate", return_value=0)
+    @patch("engine.utils.maths.Gaussian.kl_divergence")
+    @patch("engine.engine.factor_graph.w_truncate", return_value=0)
+    @patch("engine.engine.factor_graph.v_truncate", return_value=0)
     def test_truncate_factor_calls_kl_divergence(self, mock_v, mock_w, mock_kl):
         # given
         var = Variable()
