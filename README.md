@@ -8,10 +8,14 @@ I created this library as a fun way of being able to understand the TrueSkill al
 * Numpy 1.18.0
 ## Usage
 ### Direct usage
-#### Using results of factor graph directly.
-In order to 
-#### Building your own factor graph
-If you would like to directly make use of the components of the factor graph yourself they can be found in [here](src/trueskill/factor_graph.py)
+To get started straight away and run the algorithm checkout the code and run using 
+```
+python trueskill/main.py -h
+```
+#### Saving data
+Currently skills are stored in a CSV file as this was a lightweight way that suited my purposes. If you would like to change the way data is stored then inherit from the abstract base class DataSource in trueskill/player_ratings and implement the required methods.
+#### Using results of factor graph directly or building your own factor graph.
+See the README [here](https://github.com/Nush395/TrueSkill/blob/master/trueskill/trueskill/README.md)
 
 ## Credits
 As listed above the [original paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) where the details of the TrueSkill algorithm were laid out. 
@@ -22,10 +26,10 @@ I also took design inspiration for this library from the accompanying code repo 
 * https://github.com/moserware/Skills (C#)
 
 ## Further explanation
-Please see my blog post here (TBD) for more details on the implementation
+I am currently writing a post detailing my journey to understanding the algorithm which I hope will aid others' understanding, watch this space!
 
 ## Tests
-This library has tests written using the Python unittest library. To run the tests use:
+This library has tests written using the Python unittest library under the tests package in the code. To run the tests navigate to the project and use:
 ```
 python -m unittest discover
 ```
